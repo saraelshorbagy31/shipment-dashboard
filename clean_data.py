@@ -22,6 +22,12 @@ df = df.dropna(subset=['Ship_Date', 'Delivery_Date'])
 
 # ✅ إنشاء أعمدة جديدة
 df['Shipping_Days'] = (df['Delivery_Date'] - df['Ship_Date']).dt.days
+# ✅ تصحيح القيم السالبة (تبديل التواريخ)
+mask = df['Shipping_Days'] < 0
+df.loc[mask, ['Ship_Date', 'Delivery_Date']] = df.loc[mask, ['Delivery_Date', 'Ship_Date']].values
+
+# ✅ إعادة الحساب
+df['Shipping_Days'] = (df['Delivery_Date'] - df['Ship_Date']).dt.days
 df['Cost_per_kg'] = df['Cost'] / df['Weight_kg']
 df['Is_Delayed'] = df['Status'].apply(lambda x: 1 if x == 'Delayed' else 0)
 
