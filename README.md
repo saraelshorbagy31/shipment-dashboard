@@ -70,4 +70,4 @@ It includes an interactive dashboard and a machine learning model to predict shi
 ## ▶️ How to Run
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run app.py# shipping
